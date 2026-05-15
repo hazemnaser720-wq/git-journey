@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - محفظة شخصية احترافية</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+ 
+        html, body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f2ff 0%, #ffffff 100%);
+            color: #333;
+        }
+ 
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8b5cf6;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7c3aed;
+        }
+ 
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+ 
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+ 
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+ 
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+ 
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+ 
+        .nav-menu a:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-2px);
+        }
+ 
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+ 
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInDown 0.8s ease;
+        }
+ 
+        .profile-image-container {
+            margin-bottom: 2rem;
+        }
+ 
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid #7c3aed;
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.2);
+            transition: transform 0.3s ease;
+        }
+ 
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+ 
+        .hero h2 {
+            font-size: 2.2rem;
+            color: #1a1a1a;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+ 
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+ 
+        /* About Section */
+        .about-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.08);
+            border-top: 4px solid #7c3aed;
+            animation: fadeInUp 0.8s ease;
+        }
+ 
+        .about-section h3 {
+            color: #7c3aed;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+ 
+        .about-section p {
+            color: #555;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+ 
+        /* Projects Grid */
+        .projects-section {
+            margin-bottom: 4rem;
+        }
+ 
+        .section-title {
+            font-size: 2rem;
+            color: #7c3aed;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+            font-weight: 700;
+        }
+ 
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #7c3aed, #8b5cf6);
+            margin: 0.8rem auto 0;
+            border-radius: 2px;
+        }
+ 
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+ 
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            animation: fadeInUp 0.8s ease;
+        }
+ 
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(124, 58, 237, 0.15);
+            border-color: #7c3aed;
+        }
+ 
+        .project-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+        }
+ 
+        .project-content {
+            padding: 1.8rem;
+        }
+ 
+        .project-title {
+            font-size: 1.3rem;
+            color: #1a1a1a;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+ 
+        .project-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+        }
+ 
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+ 
+        .tag {
+            background: #f0e6ff;
+            color: #7c3aed;
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+ 
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 40px rgba(124, 58, 237, 0.2);
+            animation: fadeInUp 0.8s ease;
+        }
+ 
+        .contact-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+ 
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+ 
+        .contact-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+ 
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+            border-color: white;
+        }
+ 
+        .contact-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+ 
+        .contact-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            word-break: break-all;
+        }
+ 
+        /* QR Code Section */
+        .qr-section {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.08);
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease;
+        }
+ 
+        .qr-section h3 {
+            color: #7c3aed;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+ 
+        #qrcode {
+            display: inline-block;
+            padding: 1.5rem;
+            background: #f9f7ff;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+ 
+        #qrcode canvas {
+            display: block;
+        }
+ 
+        .qr-instruction {
+            color: #666;
+            font-size: 0.95rem;
+            margin-top: 1rem;
+        }
+ 
+        /* Skills Section */
+        .skills-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.08);
+            border-top: 4px solid #7c3aed;
+            animation: fadeInUp 0.8s ease;
+        }
+ 
+        .skills-section h3 {
+            color: #7c3aed;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+ 
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+ 
+        .skill-item {
+            background: linear-gradient(135deg, #f0e6ff, #faf5ff);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #e9d5ff;
+            transition: all 0.3s ease;
+        }
+ 
+        .skill-item:hover {
+            background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+            color: white;
+            border-color: #7c3aed;
+            transform: translateY(-5px);
+        }
+ 
+        .skill-item h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #7c3aed;
+        }
+ 
+        .skill-item:hover h4 {
+            color: white;
+        }
+ 
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+ 
+        footer p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+ 
+        .social-links {
+            margin: 1rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+ 
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            background: rgba(124, 58, 237, 0.3);
+        }
+ 
+        .social-links a:hover {
+            background: #7c3aed;
+            transform: translateY(-3px);
+        }
+ 
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+ 
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+ 
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+ 
+            header p {
+                font-size: 0.95rem;
+            }
+ 
+            .hero h2 {
+                font-size: 1.6rem;
+            }
+ 
+            .section-title {
+                font-size: 1.5rem;
+            }
+ 
+            .about-section,
+            .skills-section,
+            .contact-section,
+            .qr-section {
+                padding: 1.5rem;
+            }
+ 
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+ 
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+ 
+            .profile-image {
+                width: 150px;
+                height: 150px;
+            }
+ 
+            .nav-menu {
+                gap: 0.5rem;
+            }
+ 
+            .nav-menu a {
+                padding: 0.5rem 0.9rem;
+                font-size: 0.85rem;
+            }
+        }
+ 
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem 0.5rem;
+            }
+ 
+            header {
+                padding: 1.5rem 1rem;
+            }
+ 
+            header h1 {
+                font-size: 1.5rem;
+            }
+ 
+            .hero h2 {
+                font-size: 1.4rem;
+            }
+ 
+            .projects-grid {
+                gap: 1.5rem;
+            }
+ 
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🌟 Portfolio</h1>
+        <p>محفظة شخصية احترافية</p>
+        <nav class="nav-menu">
+            <a href="#about">عني</a>
+            <a href="#projects">المشاريع</a>
+            <a href="#skills">المهارات</a>
+            <a href="#contact">التواصل</a>
+        </nav>
+    </header>
+ 
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="profile-image-container">
+                <img src="C:\Users\hazem\Desktop\صورة شب بعرفوش.jpeg" alt="Profile Image" class="profile-image">
+            </div>
+            <h2>بحر عصفور</h2>
+        </section>
+ 
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <h3>🎯 نبذة عني</h3>
+            <p>خرية دايس عليها بايسكل</p>
+        </section>
+ 
+        <!-- Projects Section -->
+        <section id="projects" class="projects-section">
+            <h2 class="section-title">💼 المشاريع</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                    <div class="project-content">
+                        <h4 class="project-title">تطبيق إدارة المشاريع</h4>
+                        <p class="project-description">تطبيق ويب متقدم لإدارة المشاريع والفرق مع واجهة سهلة الاستخدام وميزات متعددة.</p>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="project-card">
+                    <div class="project-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                    <div class="project-content">
+                        <h4 class="project-title">متجر إلكتروني متقدم</h4>
+                        <p class="project-description">منصة تجارة إلكترونية كاملة مع نظام دفع آمن وإدارة المخزون التلقائية.</p>
+                        <div class="project-tags">
+                            <span class="tag">E-commerce</span>
+                            <span class="tag">Stripe</span>
+                            <span class="tag">AWS</span>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="project-card">
+                    <div class="project-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                    <div class="project-content">
+                        <h4 class="project-title">تطبيق الهاتف الذكي</h4>
+                        <p class="project-description">تطبيق جوال مبتكر يوفر خدمات متعددة مع واجهة جذابة وأداء عالي.</p>
+                        <div class="project-tags">
+                            <span class="tag">Flutter</span>
+                            <span class="tag">Firebase</span>
+                            <span class="tag">iOS/Android</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- Skills Section -->
+        <section id="skills" class="skills-section">
+            <h3>🛠️ المهارات</h3>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <h4>التصميم الجرافيكي</h4>
+                    <p style="font-size: 0.9rem;">Figma, Adobe XD, Photoshop</p>
+                </div>
+                <div class="skill-item">
+                    <h4>تطوير الويب</h4>
+                    <p style="font-size: 0.9rem;">HTML, CSS, JavaScript, React</p>
+                </div>
+                <div class="skill-item">
+                    <h4>تطوير التطبيقات</h4>
+                    <p style="font-size: 0.9rem;">Flutter, React Native, Swift</p>
+                </div>
+                <div class="skill-item">
+                    <h4>قواعد البيانات</h4>
+                    <p style="font-size: 0.9rem;">MySQL, MongoDB, Firebase</p>
+                </div>
+                <div class="skill-item">
+                    <h4>UX/UI Design</h4>
+                    <p style="font-size: 0.9rem;">تجربة المستخدم، التصميم المستجيب</p>
+                </div>
+                <div class="skill-item">
+                    <h4>إدارة المشاريع</h4>
+                    <p style="font-size: 0.9rem;">Agile, SCRUM, Trello</p>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- QR Code Section -->
+        <section class="qr-section">
+            <h3>📱 مشاركة الموقع</h3>
+            <p style="color: #666; margin-bottom: 1.5rem;">امسح رمز QR بهاتفك للوصول إلى هذا الموقع مباشرة</p>
+            <div id="qrcode"></div>
+            <p class="qr-instruction">استخدم كاميرا هاتفك أو تطبيق الماسح الضوئي للمسح</p>
+        </section>
+ 
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <h3>📞 تواصل معي</h3>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-label">📧 البريد الإلكتروني</div>
+                    <div class="contact-value">your.email@example.com</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">📱 رقم الهاتف</div>
+                    <div class="contact-value">+966 50 123 4567</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">📍 الموقع</div>
+                    <div class="contact-value">الرياض، المملكة العربية السعودية</div>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="#">LinkedIn</a>
+                <a href="#">GitHub</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+            </div>
+        </section>
+    </div>
+ 
+    <footer>
+        <p>&copy; 2024 Portfolio. جميع الحقوق محفوظة. صُنع بـ ❤️</p>
+    </footer>
+ 
+    <script>
+        // Generate QR Code
+        document.addEventListener('DOMContentLoaded', function() {
+            const pageUrl = window.location.href;
+            new QRCode(document.getElementById("qrcode"), {
+                text: pageUrl,
+                width: 256,
+                height: 256,
+                colorDark: "#7c3aed",
+                colorLight: "#f9f7ff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        });
+ 
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
